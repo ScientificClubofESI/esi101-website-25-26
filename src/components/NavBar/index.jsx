@@ -5,7 +5,6 @@ const NavBar = ()=>{
   return(
    <section >
     <ThemeToggle />
-    <h1>NavBar</h1>
    </section>
   );
 }
