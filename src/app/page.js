@@ -7,15 +7,17 @@ import Hero from "@/components/Hero";
 import NavBar from "@/components/NavBar";
 import StudentQA from "@/components/StudentQ&A";
 
-export default function Home(){
-    return(
-       <>
-       <NavBar/>
-       <Hero/>
-       <About/>
-       <FAQ/>
-       <StudentQA/>
-       <Footer/> 
-       </>
-    );
+export default function Home() {
+  return (
+    <>
+      <NavBar />
+      <Hero />
+      <About />
+      <FAQ />
+      <StudentQA />
+      <Footer />
+      {/* ChatBot mounted once; component handles its own responsive positioning */}
+      <ChatBot />
+    </>
+  );
 }
