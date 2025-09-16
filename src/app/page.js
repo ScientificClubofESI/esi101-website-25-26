@@ -11,6 +11,7 @@ export default function Home(){
     return(
        <>
        <NavBar/>
+       <div className="h-20 md:h-24"></div> {/* spacing between the navbar and the item below it (re-adjust height if necessary) */}
        <Hero/>
        <About/>
        <FAQ/>
