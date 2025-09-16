@@ -28,16 +28,11 @@ const About = () => {
             student life through engaging learning experiences and the sharing
             of knowledge in technology.
           </p>
-          <div className="relative    w-full flex capitalize text-text-m rounded-full justify-evenly items-center  ">
+          <div className="relative  font-light  w-full flex capitalize text-text-m rounded-full  gap-6 justify-evenly items-center  ">
             <div className="bg-primary-100  py-5  w-full flex capitalize text-text-m rounded-full justify-evenly items-center  dark:bg-primary-800">
               <span>+600 members</span>
             </div>
-            <div className="h-11 absolute inset-0 m-auto  bg-primary-100 rounded-t-sm rounded-b-sm w-10 ">
-              <div className="relative flex flex-col items-center justify-between w-full h-full">
-                <span className=" absolute -top-3  h-5 w-5 rounded-full  "></span>
-                <span className="h-5 w-5 absolute -bottom-3  rounded-full "></span>
-              </div>
-            </div>
+            <div className="h-[60px] absolute inset-0 m-auto clip-wave  bg-primary-100 rounded-t-sm rounded-b-sm w-14 dark:bg-primary-800 "></div>
             <div className="bg-primary-100   py-5 w-full flex capitalize text-text-m rounded-full justify-evenly items-center  dark:bg-primary-800">
               <span>+20 partners</span>
             </div>
