@@ -13,6 +13,7 @@ module.exports = {
       },
       boxShadow: {
         "input-bar": "0 0 24px 0 rgba(135,135,135,0.15)",
+        "input-area": "0px -4px 24px 0px #87878726",
       },
       fontSize: {
         "display-xl": ["4.75rem", { lineHeight: "1.1", fontWeight: "700" }],

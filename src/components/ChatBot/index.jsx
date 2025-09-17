@@ -133,23 +133,21 @@ const ChatBot = ({ defaultOpen = true }) => {
 
   return (
     <section
-      className="fixed inset-0 md:inset-auto md:bottom-8  md:top-auto w-full h-full md:h-[550px] z-50 bg-background-light md:rounded-3xl shadow-xl border border-primary-300 flex flex-col md:flex-row overflow-hidden md:max-w-[850px] md:w-full md:right-8 md:left-auto md:ml-auto"
+      className="fixed inset-0 md:inset-auto md:bottom-8 md:top-auto w-full h-full md:w-[59vw] md:h-[73.8vh] z-50 bg-background-light md:rounded-3xl shadow-xl border border-primary-300 flex flex-col md:flex-row overflow-hidden md:right-8 md:left-auto md:ml-auto"
       aria-label="ChatBot"
     >
       {/* Left suggestions panel (desktop) */}
-      <div className="hidden md:flex flex-col w-[247px]  bg-background-light border-r border-neutral-200 p-2">
-        <h2 className="text-secondary-500 w-44 pb-4 h-24 ml-10 mt-2 text-3xl font-normal  mb-2">
+      <div className="hidden md:flex flex-col w-[29%] bg-background-light border-r border-neutral-100 p-2">
+        <h2 className="text-secondary-500 text-center pb-4 h-24 mt-2 text-3xl font-normal mb-2">
           Questions
-          <span className="block text-primary-500  text-2xl  ">
-            You May Ask
-          </span>
+          <span className="block text-primary-500 text-2xl">You May Ask</span>
         </h2>
         <div className="space-y-3 overflow-y-auto pr-1">
           {SUGGESTED_QUESTIONS.map((q, i) => {
             const selected = i === selectedIdx;
             const thinkingMode = thinking && isDesktop;
             const base =
-              "w-full text-left text-lg text-neutral-800 h-28 rounded-3xl px-4 py-3 transition-colors shadow-sm focus:outline-none";
+              "w-full text-left text-lg text-neutral-800 min-h-fit rounded-3xl px-4 py-3 transition-colors shadow-sm focus:outline-none";
             let colorClass;
             if (thinkingMode) {
               colorClass = selected
@@ -181,23 +179,42 @@ const ChatBot = ({ defaultOpen = true }) => {
 
       {/* Chat column */}
       <div className="flex-1 flex flex-col min-h-0 relative">
+        {/* Background image for desktop - positioned within chat column */}
+        <div
+          className="hidden md:block absolute pointer-events-none z-0"
+          style={{
+            width: "35%",
+            height: "40%",
+            top: "20%",
+            left: "23.6%",
+            transform: "translate(-50%, -50%)",
+            opacity: 0.8,
+          }}
+        >
+          <img
+            src="/assets/background.png"
+            alt=""
+            className="w-full h-full object-contain"
+            draggable={false}
+          />
+        </div>
         {showIntro && (
-          <div className="absolute left-0 right-0 top-1/2 -translate-y-[85%] md:-translate-y-[50%] flex flex-col items-center justify-center text-center px-6 select-none pointer-events-none z-10">
+          <div className="absolute left-0 right-0 top-1/2 -translate-y-[80%] md:-translate-y-[45%] flex flex-col items-center justify-center text-center px-6 select-none pointer-events-none z-10">
             <div className="flex flex-col items-center justify-center">
-              <BotAvatar className="w-[69px] h-[64px]" />
-              <h1 className="mt-6 text-3xl font-light text-neutral-700">
+              <BotAvatar className="w-16 h-16 md:w-[60px] md:h-[55px]" />
+              <h1 className="mt-2 text-2xl md:text-3xl font-light text-neutral-700">
                 Hi, <span className="text-primary-500">I'm Cissou</span> !
               </h1>
-              <p className="mt-3 whitespace-nowrap text-neutral-400 text-xl w-60 font-normal">
+              <p className="mt-2 text-lg md:text-xl text-neutral-400 font-normal">
                 What would you like to know ?
               </p>
             </div>
           </div>
         )}
         {/* Header */}
-        <div className="flex items-center gap-3 px-5 py-3 md:py-0  sticky top-0 z-10">
-          <div className="flex  gap-6">
-            <BotAvatar />
+        <div className="flex items-center bg-background-light gap-3 px-12 h-11 md:h-[88px] py-3 md:py-0  sticky top-0 z-10">
+          <div className="flex  items-center gap-6">
+            <BotAvatar className="w-8 h-8 md:w-[46px] md:h-[42.17px]" />
             <span className="font-normal text-2xl text-primary-500">
               Cissou
             </span>
@@ -219,15 +236,18 @@ const ChatBot = ({ defaultOpen = true }) => {
           ref={scrollRef}
           className={`flex-1 overflow-y-auto px-5 py-4 ${
             showIntro ? "pb-10" : "pb-48 md:pb-6"
-          } space-y-4 bg-background-light relative min-h-0`}
+          } space-y-4 relative min-h-0`}
         >
           {messages.map((m, idx) => {
             const isBot = m.role === "bot";
             if (isBot) {
               return (
-                <div key={idx} className="flex items-start gap-2 max-w-full">
+                <div
+                  key={idx}
+                  className="flex items-start gap-2 max-w-full relative z-20"
+                >
                   <BotAvatar />
-                  <div className="max-w-[80%] border text-neutral-700 shadow-sm rounded-2xl px-4 py-3 text-sm whitespace-pre-line leading-relaxed">
+                  <div className="max-w-[80%] border text-neutral-700 shadow-sm rounded-2xl px-4 py-3 text-sm whitespace-pre-line leading-relaxed bg-white">
                     {m.content}
                   </div>
                 </div>
@@ -236,14 +256,14 @@ const ChatBot = ({ defaultOpen = true }) => {
             return (
               <div
                 key={idx}
-                className="ml-auto max-w-[85%] bg-primary-500 text-white rounded-2xl px-4 py-3 text-sm whitespace-pre-line leading-relaxed"
+                className="ml-auto max-w-[85%] bg-primary-500 text-white rounded-2xl px-4 py-3 text-sm whitespace-pre-line leading-relaxed relative z-20"
               >
                 {m.content}
               </div>
             );
           })}
           {thinking && (
-            <div className="flex items-end gap-2">
+            <div className="flex items-end gap-2 relative z-20">
               <BotAvatar />
               <div className="relative bg-neutral-50 text-primary-500 px-4 py-2 rounded-2xl shadow-sm border border-neutral-100 flex items-center gap-1 text-xs font-medium">
                 <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce [animation-delay:0ms]"></span>
@@ -255,7 +275,7 @@ const ChatBot = ({ defaultOpen = true }) => {
         </div>
 
         {/* Sticky bottom input + mobile suggestions */}
-        <div className="md:h-[94px] md:shadow-md md:static fixed bottom-0 left-0 right-0 md:left-auto md:right-auto bg-background-light/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur z-20 border-t md:border-t-0">
+        <div className=" bg-background-light md:shadow-input-area md:static fixed bottom-0 left-0 right-0 md:left-auto md:right-auto backdrop-blur supports-[backdrop-filter]:backdrop-blur z-20 border-t md:border-t-0">
           {messages.length === 0 && (
             <div className="md:hidden px-4 pt-3 pb-2 flex gap-3 overflow-x-auto scrollbar-none">
               {SUGGESTED_QUESTIONS.map((q, i) => (
@@ -280,10 +300,10 @@ const ChatBot = ({ defaultOpen = true }) => {
               e.preventDefault();
               sendMessage();
             }}
-            className="p-4 flex items-end gap-3"
+            className="px-3 py-4 md:px-3 flex items-end gap-3"
           >
             <div className="flex-1">
-              <div className="rounded-full border h-12 border-neutral-200 bg-white px-4 py-2 focus-within:ring-2 focus-within:ring-primary-300 transition-shadow">
+              <div className="rounded-full border h-12 border-neutral-300 bg-transparent px-4 py-2 focus-within:ring-2 focus-within:ring-primary-300 transition-shadow">
                 <input
                   type="text"
                   className="w-full bg-transparent text-black outline-none text-base placeholder:text-neutral-400"
