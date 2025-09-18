@@ -8,7 +8,8 @@ const SUGGESTED_QUESTIONS = [
   "How can I contact the student community?",
 ];
 
-const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
+// Custom hook for dark mode detection
+const useDarkMode = () => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
@@ -16,10 +17,7 @@ const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
       setIsDark(document.documentElement.classList.contains("dark"));
     };
 
-    // Check initial state
     checkDarkMode();
-
-    // Watch for theme changes
     const observer = new MutationObserver(checkDarkMode);
     observer.observe(document.documentElement, {
       attributes: true,
@@ -28,6 +26,12 @@ const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
 
     return () => observer.disconnect();
   }, []);
+
+  return isDark;
+};
+
+const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
+  const isDark = useDarkMode();
 
   const getSrc = () => {
     if (hover) return "/assets/bot-hover.png";
@@ -43,26 +47,9 @@ const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
     />
   );
 };
+
 const CloseButton = ({ className = "w-8 h-8" }) => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    const checkDarkMode = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-
-    // Check initial state
-    checkDarkMode();
-
-    // Watch for theme changes
-    const observer = new MutationObserver(checkDarkMode);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const isDark = useDarkMode();
 
   return (
     <img
@@ -73,6 +60,52 @@ const CloseButton = ({ className = "w-8 h-8" }) => {
     />
   );
 };
+
+// Message components
+const BotMessage = ({ content }) => (
+  <div className="flex items-end gap-3 max-w-full relative z-20">
+    <div className="flex-shrink-0">
+      <BotAvatar className="w-8 h-8" />
+    </div>
+    <div
+      className="relative w-64 p-4 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-50 dark:bg-gray-700 z-20 opacity-70"
+      style={{ borderBottomLeftRadius: "0" }}
+    >
+      <span className="relative z-10 break-words">{content}</span>
+    </div>
+  </div>
+);
+
+const UserMessage = ({ content }) => (
+  <div className="ml-auto w-64 relative z-20">
+    <div
+      className="relative p-4 text-gray-800 dark:text-gray-200 text-lg text-right rounded-2xl bg-primary-100 dark:bg-primary-800 z-20 opacity-70"
+      style={{ borderBottomRightRadius: "0" }}
+    >
+      <span className="relative z-10 whitespace-pre-line leading-relaxed break-words">
+        {content}
+      </span>
+    </div>
+  </div>
+);
+
+const ThinkingIndicator = () => (
+  <div className="flex items-end gap-2 relative z-20">
+    <BotAvatar />
+    <div className="relative bg-neutral-50 text-primary-500 px-4 py-2 rounded-2xl shadow-sm border border-neutral-100 flex items-center gap-1 text-xs font-medium">
+      <span>Typing</span>
+      <div className="flex gap-1">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="w-1 h-1 bg-primary-500 rounded-full animate-pulse"
+            style={{ animationDelay: `${i * 0.2}s` }}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+);
 
 const ChatBot = ({ defaultOpen = true }) => {
   const [open, setOpen] = useState(defaultOpen); // container visibility
@@ -205,7 +238,7 @@ const ChatBot = ({ defaultOpen = true }) => {
       </div>
 
       {/* Chat column */}
-      <div className="flex-1 flex flex-col min-h-0 relative">
+      <div className="flex-1 flex flex-col bg-background-light dark:bg-background-dark min-h-0 relative">
         {/* Background image for desktop - positioned within chat column */}
         <div
           className="hidden md:block absolute pointer-events-none z-0"
@@ -269,77 +302,14 @@ const ChatBot = ({ defaultOpen = true }) => {
             showIntro ? "pb-10" : "pb-48 md:pb-6"
           } space-y-4 relative min-h-0`}
         >
-          {messages.map((m, idx) => {
-            const isBot = m.role === "bot";
-            if (isBot) {
-              return (
-                <div
-                  key={idx}
-                  className="flex items-start gap-2 max-w-full relative z-20"
-                >
-                  <BotAvatar />
-                  <div
-                    className="relative w-64 p-4 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-50 dark:bg-gray-700 z-20 opacity-70"
-                    style={{
-                      "--b": "0.3em", // even smaller base for less pronounced tail
-                      "--h": "0.2em", // even smaller height for less pronounced tail
-                      borderBottomLeftRadius: "0",
-                      background: "#f9fafb", // gray-50 color
-                    }}
-                  >
-                    <div
-                      className="absolute"
-                      style={{
-                        inset: "0 0 calc(-1*var(--h)) calc(-1*var(--h))",
-                        background: "#f9fafb", // same gray-50 color
-                        clipPath: `polygon(0 100%, 
-                          var(--h) calc(100% - var(--b) - var(--h)), 
-                          calc(var(--h) + var(--b)) calc(100% - var(--h)))`,
-                      }}
-                    ></div>
-                    <span className="relative z-10 break-words">
-                      {m.content}
-                    </span>
-                  </div>
-                </div>
-              );
-            }
-            return (
-              <div key={idx} className="ml-auto w-64 relative z-20">
-                <div
-                  className="relative p-4 text-gray-800 dark:text-gray-200 text-lg text-right rounded-2xl bg-primary-100 dark:bg-primary-800 z-20 opacity-70"
-                  style={{
-                    "--b": "0.3em", // even smaller base for less pronounced tail
-                    "--h": "0.2em", // even smaller height for less pronounced tail
-                    borderBottomRightRadius: "0",
-                  }}
-                >
-                  <div
-                    className="absolute bg-primary-100 dark:bg-primary-800"
-                    style={{
-                      inset: "0 calc(-1*var(--h)) calc(-1*var(--h)) 0",
-                      clipPath: `polygon(100% 100%, 
-                        calc(100% - var(--h)) calc(100% - var(--b) - var(--h)), 
-                        calc(100% - var(--h) - var(--b)) calc(100% - var(--h)))`,
-                    }}
-                  ></div>
-                  <span className="relative z-10 whitespace-pre-line leading-relaxed break-words">
-                    {m.content}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-          {thinking && (
-            <div className="flex items-end gap-2 relative z-20">
-              <BotAvatar />
-              <div className="relative bg-neutral-50 text-primary-500 px-4 py-2 rounded-2xl shadow-sm border border-neutral-100 flex items-center gap-1 text-xs font-medium">
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce [animation-delay:0ms]"></span>
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce [animation-delay:150ms]"></span>
-                <span className="w-2 h-2 bg-primary-500 rounded-full animate-bounce [animation-delay:300ms]"></span>
-              </div>
-            </div>
+          {messages.map((m, idx) =>
+            m.role === "bot" ? (
+              <BotMessage key={idx} content={m.content} />
+            ) : (
+              <UserMessage key={idx} content={m.content} />
+            )
           )}
+          {thinking && <ThinkingIndicator />}
         </div>
 
         {/* Sticky bottom input + mobile suggestions */}
