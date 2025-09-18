@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
+import Slider from "./slider";
 const About = () => {
   return (
-    <section className="relative my-10 p-5 md:p-10 lg:p-20 flex flex-col justify-start gap-16 lg:gap-24">
+    <section className="relative my-10 p-5 md:p-10 lg:px-24 lg:py-14 flex flex-col justify-start gap-16 lg:gap-24">
       {" "}
       <div className="relative  ">
         <h1 className="text-primary-500 font-light text-heading-m  lg:text-[47px]  capitalize ">
@@ -39,9 +40,10 @@ const About = () => {
           </div>
         </div>
       </div>
-      <div className=" hidden lg:block absolute space-y-reverse -bottom-5 w-72 md:w-[280px] lg -left-1 ">
+      <div className=" hidden lg:block absolute space-y-reverse -bottom-10 w-72 md:w-[280px] lg -left-1 ">
         <Image src="/assets/Vector.svg" alt="vector" width={450} height={100} />
       </div>
+      <Slider></Slider>
     </section>
   );
 };
