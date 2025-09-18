@@ -2,46 +2,41 @@
 import React, { useState } from "react";
 
 const Slider = () => {
-  const ArrayOfImages = [
+  const arr = [
     "/assets/sliderPicOne.jpg",
     "/assets/datahack.jpg",
     "/assets/cse.jpg",
   ];
-
-  // Each item will take one of three "slots": left, center, right
-  const positions = [
-    "absolute top-0 left-48 h-[350px] w-[320px] rounded-3xl z-10 bg-cover bg-center transition-all duration-500",
-    "absolute top-6 left-20 h-[310px] w-[300px] rounded-3xl opacity-40 z-0 bg-cover bg-center transition-all duration-500",
-    "absolute top-6 left-[300px] h-[310px] w-[300px] rounded-3xl opacity-40 z-0 bg-cover bg-center transition-all duration-500",
-  ];
-
   const [current, setCurrent] = useState(0);
 
   const prev = () => {
-    setCurrent((current - 1 + ArrayOfImages.length) % ArrayOfImages.length);
+    setCurrent((current - 1 + arr.length) % arr.length);
+  };
+  const next = () => {
+    setCurrent((current + 1) % arr.length);
   };
 
-  const next = () => {
-    setCurrent((current + 1) % ArrayOfImages.length);
-  };
+  // roles: left, center, right
+  const roles = [
+    "transform translate-x-0 top-8 h-[200px] w-[190px]  scale-100 opacity-100 z-20",
+    "transform  translate-x-32 lg:translate-x-40 top-24 h-[130px] w-[120px] scale-90 opacity-70 z-0",
+    "transform -translate-x-32 lg:-translate-x-40 top-24 h-[130px] w-[110px] scale-90 opacity-70 z-0",
+  ];
 
   return (
-    <div className="relative h-[400px] w-full">
-      <div className="relative h-full w-full">
-        {ArrayOfImages.map((src, i) => {
-          const posIndex =
-            (i - current + ArrayOfImages.length) % ArrayOfImages.length;
-          return (
-            <div
-              key={i}
-              className={positions[posIndex]}
-              style={{ backgroundImage: `url(${src})` }}
-            ></div>
-          );
-        })}
-      </div>
+    <div className="relative trans h-[300px]  md:h-[400px] lg:h-full flex items-center justify-center overflow-hidden">
+      {arr.map((src, i) => {
+        const roleIndex = (i - current + arr.length) % arr.length;
+        return (
+          <div
+            key={i}
+            className={`absolute  lg:top-10  lg:h-[390px] lg:w-[330px] rounded-3xl bg-cover bg-center transition-all duration-700 ease-in-out ${roles[roleIndex]}`}
+            style={{ backgroundImage: `url(${src})` }}
+          />
+        );
+      })}
 
-      <div className="absolute top-[40%] right-16 flex justify-between w-[70%] ">
+      <div className="absolute top-[80%] z-20  md:top-[45%] right-14 md:right-24 flex justify-evenly md:justify-between w-[70%] ">
         <button
           onClick={prev}
           className="h-fit w-fit flex items-center  border-2 border-primary-500 hover:border-secondary-500 rounded-full"
