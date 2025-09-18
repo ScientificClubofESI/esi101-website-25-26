@@ -1,52 +1,83 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
-import { setConfig } from "next/config";
+
 const Slider = () => {
-  const arr = [
+  const ArrayOfImages = [
     "/assets/sliderPicOne.jpg",
-    "/assets/landscape-9833605_1280.jpg",
-    "/assets/new-york-city-9831647_1280.jpg",
-    "/assets/landscape-9833604_1280.jpg",
+    "/assets/datahack.jpg",
+    "/assets/cse.jpg",
+  ];
+
+  // Each item will take one of three "slots": left, center, right
+  const positions = [
+    "absolute top-0 left-48 h-[350px] w-[320px] rounded-3xl z-10 bg-cover bg-center transition-all duration-500",
+    "absolute top-6 left-20 h-[310px] w-[300px] rounded-3xl opacity-40 z-0 bg-cover bg-center transition-all duration-500",
+    "absolute top-6 left-[300px] h-[310px] w-[300px] rounded-3xl opacity-40 z-0 bg-cover bg-center transition-all duration-500",
   ];
 
   const [current, setCurrent] = useState(0);
 
   const prev = () => {
-    setCurrent((current - 1 + arr.length) % arr.length);
+    setCurrent((current - 1 + ArrayOfImages.length) % ArrayOfImages.length);
   };
 
   const next = () => {
-    setCurrent((current + 1) % arr.length);
+    setCurrent((current + 1) % ArrayOfImages.length);
   };
 
-  const left = (current - 1 + arr.length) % arr.length;
-  const right = (current + 1) % arr.length;
-
   return (
-    <div>
-      <div className="flex justify-between">
-        <Image
-          src={arr[left]}
-          width={300}
-          height={300}
-          alt="left"
-          className="opacity-30"
-        />
-        <Image src={arr[current]} width={300} height={300} alt="current" />
-        <Image
-          src={arr[right]}
-          width={300}
-          height={300}
-          alt="right"
-          className="opacity-30"
-        />
+    <div className="relative h-[400px] w-full">
+      <div className="relative h-full w-full">
+        {ArrayOfImages.map((src, i) => {
+          const posIndex =
+            (i - current + ArrayOfImages.length) % ArrayOfImages.length;
+          return (
+            <div
+              key={i}
+              className={positions[posIndex]}
+              style={{ backgroundImage: `url(${src})` }}
+            ></div>
+          );
+        })}
       </div>
-      <div onClick={next} className="border-2 cursor-pointer">
-        go right
-      </div>
-      <div onClick={prev} className="border-2 cursor-pointer">
-        go left
+
+      <div className="absolute top-[40%] right-16 flex justify-between w-[70%] ">
+        <button
+          onClick={prev}
+          className="h-fit w-fit flex items-center  border-2 border-primary-500 hover:border-secondary-500 rounded-full"
+        >
+          <svg
+            className="stroke-primary-500 hover:stroke-secondary-500"
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 6l-6 6l6 6" />
+          </svg>
+        </button>
+        <button
+          onClick={next}
+          className="h-fit w-fit flex items-center  border-2 border-primary-500 hover:border-secondary-500 rounded-full"
+        >
+          <svg
+            className="stroke-primary-500 hover:stroke-secondary-500"
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            strokeWidth="1.25"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M9 6l6 6l-6 6" />
+          </svg>
+        </button>
       </div>
     </div>
   );

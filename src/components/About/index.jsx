@@ -21,9 +21,9 @@ const About = () => {
           />
         </div>
       </div>
-      <div>
-        <div className="text-neutral-950 flex flex-col justify-start gap-10  w-full lg:w-[50%] dark:text-neutral-50">
-          <p className="text-text-m md:text-text-l">
+      <div className="lg:grid lg:grid-cols-[50%_50%] gap-10 items-start">
+        <div className="text-neutral-950 flex flex-col justify-start gap-8  w-full  dark:text-neutral-50">
+          <p className="text-text-l ">
             CSE—the Scientific Club of ESI! Founded in 2008 by students from the
             National School of Computer Science, our mission is to enhance
             student life through engaging learning experiences and the sharing
@@ -39,11 +39,11 @@ const About = () => {
             </div>
           </div>
         </div>
+        <Slider></Slider>
       </div>
-      <div className=" hidden lg:block absolute space-y-reverse -bottom-10 w-72 md:w-[280px] lg -left-1 ">
+      <div className=" hidden lg:block absolute space-y-reverse -bottom-16 w-72 md:w-[280px] lg -left-1 ">
         <Image src="/assets/Vector.svg" alt="vector" width={450} height={100} />
       </div>
-      <Slider></Slider>
     </section>
   );
 };
