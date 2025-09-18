@@ -57,8 +57,8 @@ const Footer = ()=>{
       </div>
     </div>
 
-<div className='absolute flex justify-end right-[6.06rem]'>
-  <button className='relative hidden md:block lg:block bottom-[7rem]'
+<div className='absolute right-[6.06rem]'>
+  <button className='relative hidden md:block bottom-[7rem]'
   onClick={() => {
     window.scrollTo({
       top: 0,
