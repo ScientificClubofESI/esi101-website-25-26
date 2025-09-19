@@ -73,10 +73,10 @@ const NavBar = () => {
                 <a href="#hero">Home</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in">
-                <a href="#">About</a>
+                <a href="#about">About</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in whitespace-nowrap">
-                <a href="#">Student Q&A</a>
+                <a href="#StudentQA">Student Q&A</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in">
                 <a href="#faqs">FAQ</a>
@@ -138,10 +138,10 @@ const NavBar = () => {
                 <a href="#hero" onClick={() => setMobileMenuOpen(false)}>Home</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in py-2 border-b border-opacity-20 border-background-light">
-                <a href="#" onClick={() => setMobileMenuOpen(false)}>About</a>
+                <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in py-2 border-b border-opacity-20 border-background-light">
-                <a href="#" onClick={() => setMobileMenuOpen(false)}>Student Q&A</a>
+                <a href="#StudentQA" onClick={() => setMobileMenuOpen(false)}>Student Q&A</a>
               </li>
               <li className="hover:text-orange-500 transition-all duration-150 ease-in py-2 border-b border-opacity-20 border-background-light">
                 <a href="#faqs" onClick={() => setMobileMenuOpen(false)}>FAQ</a>

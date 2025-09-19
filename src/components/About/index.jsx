@@ -3,11 +3,11 @@ import Image from "next/image";
 import Slider from "./slider";
 const About = () => {
   return (
-    <section className="relative my-10 p-5 md:p-10 lg:px-24 lg:py-14 lg:grid lg:grid-cols-[50%_50%] gap-10 items-start">
+    <section className="relative my-16  p-5 md:p-16 my-24 lg:p-24 my-32  lg:grid lg:grid-cols-[50%_50%] gap-10 items-start" id="about">
       {" "}
       <div className="relative  flex flex-col justify-start gap-14 lg:gap-24">
         <div className="relative">
-          <h1 className="text-primary-500 font-light text-heading-m  lg:text-[47px]  capitalize ">
+          <h1 className="text-primary-500 font-light text-heading-m  lg:text-[49px]  capitalize ">
             {" "}
             About <span className="text-secondary-500 uppercase">
               cse
@@ -23,8 +23,8 @@ const About = () => {
           </div>
         </div>
         <div className="">
-          <div className="text-neutral-950 flex flex-col justify-start gap-8  w-full  dark:text-neutral-50">
-            <p className="text-text-l ">
+          <div className="text-background-dark flex flex-col justify-start gap-10  w-full  dark:text-neutral-50">
+            <p className="text-text-m md:text-text-l ">
               CSE—the Scientific Club of ESI! Founded in 2008 by students from
               the National School of Computer Science, our mission is to enhance
               student life through engaging learning experiences and the sharing

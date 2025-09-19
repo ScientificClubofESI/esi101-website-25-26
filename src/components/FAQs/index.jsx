@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import Image from "next/image";
 // le3ziz
 const FAQS_DATA = [
   {
@@ -84,20 +84,25 @@ const FAQs = () => {
   };
 
   return (
-    <section className="relative mx-auto md:px-24 px-8 md:my-20 my-12 font-sans" id="faqs">
+    <section className="relative my-16  p-5 md:p-16  lg:p-24 font-sans" id="faqs">
       {/* Section title */}
     <div className="relative inline-block mb-10 ">
-        <h2 className="text-text-l  md:text-heading-l text-primary-900 dark:text-background-light leading-none">
+      <div className="relative  flex flex-col justify-start gap-14 lg:gap-24">
+        <div className="relative">
+        <h1 className="font-light text-heading-m  lg:text-[47px] text-primary-500 dark:text-background-light leading-none">
           <span className="text-secondary-500">FAQs</span>{" "}
           <span className="text-primary-500">at a glance</span>
-        </h2>
-      <img
-        src="/assets/faq-under-title.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute left-0 bottom-0 w-[150%] max-w-none h-auto translate-y-8"
-      />
-
+        </h1>
+          <div className="absolute top-7 w-72 md:w-[350px] lg:w-[450px] lg left-0 ">
+            <Image
+              src="/assets/Vector (1).svg"
+              alt="vector"
+              width={450}
+              height={100}
+            />
+          </div>
+        </div>
+    </div>
      </div>
       {/* Background vector image "i made it only for medium and bigger screens" */}
       <img
