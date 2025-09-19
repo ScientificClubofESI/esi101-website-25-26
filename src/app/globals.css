@@ -12,6 +12,10 @@
   --foreground: #EFEFF0;
 }
 
+.clip-wave {
+  clip-path: path("M0,0 Q25, 20 57, 0 H61 V63 Q31, 40 0, 60 Z");
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
