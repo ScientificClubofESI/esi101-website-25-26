@@ -86,24 +86,24 @@ const FAQs = () => {
   return (
     <section className="relative mx-auto md:px-24 px-8 md:my-20 my-12 font-sans" id="faqs">
       {/* Section title */}
-  <div className="relative inline-block pb-3">
-  <h2 className="text-[31px] md:text-[49px] font-normal text-primary-900 dark:text-background-light leading-none">
+    <div className="relative inline-block mb-10 ">
+        <h2 className="text-text-l  md:text-heading-l text-primary-900 dark:text-background-light leading-none">
           <span className="text-secondary-500">FAQs</span>{" "}
           <span className="text-primary-500">at a glance</span>
         </h2>
-        <img
-          src="/assets/faq-under-title.png"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute left-0 mb-2 top-full -translate-y-3 md:-translate-y-2 w-[490px] sm:w-[500px] md:w-[720px] lg:w-[880px] xl:w-[1000px] h-auto"
-        />
-      </div>
+      <img
+        src="/assets/faq-under-title.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute left-0 bottom-0 w-[150%] max-w-none h-auto translate-y-8"
+      />
 
+     </div>
       {/* Background vector image "i made it only for medium and bigger screens" */}
       <img
         src="/assets/faq-bg-vector.png"
         alt=""
-        className="hidden md:block pointer-events-none select-none absolute top-8 right-0 h-[78%]"
+        className="hidden md:block pointer-events-none select-none absolute translate-y-10 right-0 h-[350px]"
       />
 
       {/* Desktop/Tablet accordion */}

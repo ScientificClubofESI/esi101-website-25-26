@@ -19,8 +19,8 @@ const Footer = ()=>{
   const [hovered, setHovered] = useState(false);
 
   return(
-   <section>
-    <div className='flex flex-col items-center gap-[0.75rem] mt-[2.5rem] md:gap-[1.5rem] mb-[0.5rem] mx-auto md:px-24 px-8'>
+   <section className="relative" id='footer'>
+    <div className='flex flex-col items-center gap-[0.75rem] mt-[2.5rem] md:gap-[1.5rem]  mx-auto md:px-24 px-8'>
       <img src="/assets/esi-icon.png" alt="esi logo" 
       className='dark:hidden w-[20.1875rem] md:w-[35rem]'/>
       <img src="/assets/Dark Logo.svg" alt="esi logo"
@@ -48,32 +48,38 @@ const Footer = ()=>{
         </a></li>
       </ul>
 
-      <div className='flex items-center'>
+      <div className='flex items-center mb-12'>
       <p className='text-black dark:text-[#ECF1FC] text-xs md:text-xl'>Made with <span className="text-red-500 text-base">❤️</span> by</p>
         <img src="/assets/cseLightM.svg" alt='cse logo' 
         className='dark:hidden w-[4.55rem] md:w-[9.1rem]'/>
         <img src="/assets/cseDarkM.svg" alt="cse logo" 
         className='dark:block hidden w-[4.55rem] md:w-[9.1rem]'/>
       </div>
+    <div className='absolute right-[6.06rem]'>
+          <button className='relative hidden md:block translate-y-32'
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          >
+          <img src="/assets/uparrow.svg" alt="Scroll to top"
+          className={` ${hovered ? 'opacity-0 ': 'opacity-100'}`}/>
+          <img src="/assets/uparrowLight.svg" alt="Scroll to top" 
+          className={`absolute top-0 right-0 ${hovered ? 'opacity-100' : 'opacity-0'}`}/>
+          </button>
     </div>
 
-<div className='absolute right-[6.06rem]'>
-  <button className='relative hidden md:block bottom-[7rem]'
-  onClick={() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }}
-  onMouseEnter={() => setHovered(true)}
-  onMouseLeave={() => setHovered(false)}
-  >
-  <img src="/assets/uparrow.svg" alt="Scroll to top"
-  className={` ${hovered ? 'opacity-0 ': 'opacity-100'}`}/>
-  <img src="/assets/uparrowLight.svg" alt="Scroll to top" 
-  className={`absolute top-0 right-0 ${hovered ? 'opacity-100' : 'opacity-0'}`}/>
-  </button>
     </div>
+
+    <img
+        src="/assets/footer-bg.svg"
+        alt=""
+        className="block pointer-events-none select-none absolute bottom-0 h-auto w-full"
+      />
    </section>
   );
 }
