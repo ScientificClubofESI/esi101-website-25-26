@@ -7,6 +7,7 @@ import Hero from "@/components/Hero";
 import NavBar from "@/components/NavBar";
 import StudentQA from "@/components/StudentQ&A";
 
+
 export default function Home(){
     return(
        <>
