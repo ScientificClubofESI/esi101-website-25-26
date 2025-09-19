@@ -16,8 +16,6 @@ export default function Home() {
       <FAQ />
       <StudentQA />
       <Footer />
-      {/* ChatBot mounted once; component handles its own responsive positioning */}
-      <ChatBot />
     </>
   );
 }

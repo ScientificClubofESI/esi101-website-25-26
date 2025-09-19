@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-
+// Suggested questions shown in desktop sidebar and mobile chips
 const SUGGESTED_QUESTIONS = [
-  "What are the negative aspects of the school?",
-  "How does the admission process work?",
   "What extracurricular activities are offered?",
   "How can I contact the student community?",
+  "What programs are available?",
+  "How do I apply?",
+  "What are the tuition fees?",
 ];
-
 // Custom hook for dark mode detection
 const useDarkMode = () => {
   const [isDark, setIsDark] = useState(false);
@@ -68,7 +68,7 @@ const BotMessage = ({ content }) => (
       <BotAvatar className="w-8 h-8" />
     </div>
     <div
-      className="relative w-64 p-4 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-50 dark:bg-gray-700 z-20 opacity-70"
+      className="relative w-64 p-2 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-200 dark:bg-gray-700 z-20 opacity-70"
       style={{ borderBottomLeftRadius: "0" }}
     >
       <span className="relative z-10 break-words">{content}</span>
@@ -90,15 +90,19 @@ const UserMessage = ({ content }) => (
 );
 
 const ThinkingIndicator = () => (
-  <div className="flex items-end gap-2 relative z-20">
-    <BotAvatar />
-    <div className="relative bg-neutral-50 text-primary-500 px-4 py-2 rounded-2xl shadow-sm border border-neutral-100 flex items-center gap-1 text-xs font-medium">
-      <span>Typing</span>
-      <div className="flex gap-1">
+  <div className="flex items-end gap-3 max-w-full relative z-20">
+    <div className="flex-shrink-0">
+      <BotAvatar className="w-8 h-8" />
+    </div>
+    <div
+      className="relative inline-flex items-center justify-center px-3 py-2 rounded-2xl bg-gray-50 dark:bg-gray-700 z-20 opacity-70"
+      style={{ borderBottomLeftRadius: "0" }}
+    >
+      <div className="flex items-center justify-center">
         {[0, 1, 2].map((i) => (
-          <div
+          <span
             key={i}
-            className="w-1 h-1 bg-primary-500 rounded-full animate-pulse"
+            className="inline-block w-1.5 h-1.5 mx-1.5 rounded-full bg-primary-500 animate-pulse"
             style={{ animationDelay: `${i * 0.2}s` }}
           />
         ))}
@@ -117,6 +121,7 @@ const ChatBot = ({ defaultOpen = true }) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const replyTimeoutRef = useRef(null);
   const showIntro = messages.length === 0 && !thinking;
+  const showMobileSuggestions = messages.length === 0; // controls bottom padding on mobile
 
   // Track viewport width for behavior differences (auto-send suggestions desktop only)
   useEffect(() => {
@@ -210,9 +215,10 @@ const ChatBot = ({ defaultOpen = true }) => {
               "w-full text-left text-lg text-neutral-800 dark:text-neutral-200 min-h-fit rounded-3xl px-4 py-3 transition-colors shadow-sm focus:outline-none";
             let colorClass;
             if (thinkingMode) {
+              // While thinking on desktop, keep backgrounds but force light gray text
               colorClass = selected
-                ? "bg-primary-300 dark:bg-primary-800 text-neutral-800 dark:text-neutral-200"
-                : "bg-primary-200 dark:bg-primary-800 text-neutral-800 dark:text-neutral-200"; // all neutral-800 text while thinking
+                ? "bg-primary-300 dark:bg-primary-800 !text-neutral-400 dark:!text-neutral-400"
+                : "bg-primary-200 dark:bg-primary-800 !text-neutral-400 dark:!text-neutral-400";
             } else {
               colorClass = selected
                 ? "bg-primary-300 dark:bg-primary-800 text-primary-800 dark:text-neutral-200"
@@ -299,7 +305,7 @@ const ChatBot = ({ defaultOpen = true }) => {
         <div
           ref={scrollRef}
           className={`flex-1 overflow-y-auto px-5 py-4 ${
-            showIntro ? "pb-10" : "pb-48 md:pb-6"
+            showMobileSuggestions ? "pb-48 md:pb-6" : "pb-24 md:pb-6"
           } space-y-4 relative min-h-0`}
         >
           {messages.map((m, idx) =>
@@ -313,8 +319,8 @@ const ChatBot = ({ defaultOpen = true }) => {
         </div>
 
         {/* Sticky bottom input + mobile suggestions */}
-        <div className=" bg-background-light dark:bg-background-dark md:shadow-input-area md:static fixed bottom-0 left-0 right-0 md:left-auto md:right-auto backdrop-blur supports-[backdrop-filter]:backdrop-blur z-2 md:border-t-0">
-          {messages.length === 0 && (
+        <div className=" bg-background-light dark:bg-background-dark md:shadow-input-area md:static fixed bottom-0 left-0 right-0 md:left-auto md:right-auto backdrop-blur supports-[backdrop-filter]:backdrop-blur z-50 md:border-t-0">
+          {showMobileSuggestions && (
             <div className="md:hidden px-4 pt-3 pb-2 flex gap-3 overflow-x-auto scrollbar-none">
               {SUGGESTED_QUESTIONS.map((q, i) => (
                 <button
