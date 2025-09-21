@@ -4,31 +4,27 @@ import Image from "next/image";
 // le3ziz
 const FAQS_DATA = [
   {
-    q: "How can I fully integrate into the club?",
+    q: "What is the purpose of the ESI 101 event organized by the CSE ?",
+    a: "ESI 101 is designed to greatly benefit first-year students by offering essential guidance and resources to help them navigate university life and manage their studies effectively."  },
+    {
+    q: "Who is the target audience for ESI 101?",
     a:
-      "You can fully integrate into the  by actively  in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
-  },
+"ESI 101 is aimed at first-year students who have just joined the school, offering essential foundational knowledge."  },
+  {
+    q: "Who can join the CSE?",
+    a:
+"Every university student, regardless of their level or field of study, is welcome. Whether you're a beginner or experienced, there's a place for you among us."  },
   {
     q: "How can I fully integrate into the club?",
     a:
       "You can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
   },
   {
-    q: "How can I fully integrate into the club?",
+    q: "What events does the CSE organize?",
     a:
-      "You can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
-  },
-  {
-    q: "How can I fully integrate into the club?",
-    a:
-      "You can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
-  },
-  {
-    q: "How can I fully integrate into the club?",
-    a:
-      "You can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
-  },
+"We regularly organize hands-on workshops, expert-led conferences, as well as both internal and external hackathons."  },
 ];
+
 
 const Chevron = ({ open }) => (
   <svg
