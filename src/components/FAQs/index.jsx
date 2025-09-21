@@ -6,7 +6,7 @@ const FAQS_DATA = [
   {
     q: "How can I fully integrate into the club?",
     a:
-      "You can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
+      "You can fully integrate into the  by actively  in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshopsYou can fully integrate into the club by actively participating in events, joining project teams, attending weekly meetings, and connecting with other members through our social activities and workshops.",
   },
   {
     q: "How can I fully integrate into the club?",
