@@ -11,6 +11,10 @@ const Hero = ()=>{
     setShowChatBot(true);
   };
 
+  const handleChatClose = () => {
+    setShowChatBot(false);
+  };
+
   useEffect(() => {
     if (showChatBot) {
       document.body.style.overflow = 'hidden';
@@ -93,14 +97,13 @@ const Hero = ()=>{
     className="hidden md:block pointer-events-none select-none absolute right-0 bottom-0  h-[300px]"
   />
       {showChatBot && (
-        <div className='md:bg-black md:bg-opacity-50 fixed inset-0'>
-          <span className='absolute md:top-44 md:right-16 top-4 right-9 z-50 text-primary-500 text-3xl cursor-pointer' onClick={() => setShowChatBot(false)} >X</span>
-            <NavBar />
-            <ChatBot />
+        <div className='md:bg-black md:bg-opacity-50 fixed inset-0 z-[55]'>
+          <NavBar />
+          <ChatBot defaultOpen={true} onClose={handleChatClose} />
         </div>
       )}
    </section>
   );
 }
 
-export default Hero ;
+export default Hero;

@@ -52,12 +52,29 @@ const CloseButton = ({ className = "w-8 h-8" }) => {
   const isDark = useDarkMode();
 
   return (
-    <img
-      src={isDark ? "/assets/darkclose.png" : "/assets/close.png"}
-      alt="Close"
-      className={`${className} select-none`}
-      draggable={false}
-    />
+    <div className="relative">
+      <img
+        src={isDark ? "/assets/darkclose.png" : "/assets/close.png"}
+        alt="Close"
+        className={`${className} select-none`}
+        draggable={false}
+        onError={(e) => {
+          // Fallback if image fails to load
+          e.target.style.display = 'none';
+          e.target.nextElementSibling.style.display = 'block';
+        }}
+      />
+      {/* SVG Fallback */}
+      <svg 
+        className={`${className} select-none hidden text-neutral-600 dark:text-neutral-300`} 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+        style={{position: 'absolute', top: 0, left: 0}}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
   );
 };
 
@@ -79,7 +96,7 @@ const BotMessage = ({ content }) => (
 const UserMessage = ({ content }) => (
   <div className="ml-auto w-64 relative z-20">
     <div
-      className="relative p-4 text-gray-800 dark:text-gray-200 text-lg text-right rounded-2xl bg-primary-100 dark:bg-primary-800 z-20 opacity-70"
+      className="relative p-4 text-gray-800 dark:text-gray-200 text-lg text-left rounded-2xl bg-primary-100 dark:bg-primary-800 z-20 opacity-70"
       style={{ borderBottomRightRadius: "0" }}
     >
       <span className="relative z-10 whitespace-pre-line leading-relaxed break-words">
@@ -111,7 +128,7 @@ const ThinkingIndicator = () => (
   </div>
 );
 
-const ChatBot = ({ defaultOpen = true }) => {
+const ChatBot = ({ defaultOpen = true, onClose }) => {
   const [open, setOpen] = useState(defaultOpen); // container visibility
   const [messages, setMessages] = useState([]); // start empty
   const [input, setInput] = useState("");
@@ -183,6 +200,13 @@ const ChatBot = ({ defaultOpen = true }) => {
     sendMessage(q);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    if (onClose) {
+      onClose();
+    }
+  };
+
   if (!open) {
     return (
       <button
@@ -198,7 +222,7 @@ const ChatBot = ({ defaultOpen = true }) => {
 
   return (
     <section
-      className="fixed inset-0 md:inset-auto md:bottom-8 md:top-auto w-full h-full md:w-[59vw] md:h-[73.8vh] z-50 bg-background-light dark:bg-background-dark md:rounded-3xl shadow-xl   flex flex-col md:flex-row overflow-hidden md:right-8 md:left-auto md:ml-auto"
+      className="fixed inset-0 md:inset-auto md:bottom-8 md:top-auto w-full h-full md:w-[59vw] md:h-[73.8vh] z-[60] bg-background-light dark:bg-background-dark md:rounded-3xl shadow-xl   flex flex-col md:flex-row overflow-hidden md:right-8 md:left-auto md:ml-auto"
       aria-label="ChatBot"
     >
       {/* Left suggestions panel (desktop) */}
@@ -282,23 +306,22 @@ const ChatBot = ({ defaultOpen = true }) => {
           </div>
         )}
         {/* Header */}
-        <div className="flex items-center bg-background-light dark:bg-background-dark px-12 md:h-[88px] py-3 md:py-0  sticky top-0 z-10">
-          <div className="flex  items-center gap-6">
+        <div className="flex items-center justify-between bg-background-light dark:bg-background-dark px-4 md:px-12 h-16 md:h-[88px] sticky top-0 z-[70] border-b border-neutral-200 dark:border-neutral-700 shadow-sm">
+          <div className="flex items-center gap-3 md:gap-6">
             <BotAvatar className="w-8 h-8 md:w-[46px] md:h-[42.17px]" />
-            <span className="font-normal text-2xl text-primary-500 dark:text-primary-300">
+            <span className="font-normal text-xl md:text-2xl text-primary-500 dark:text-primary-300">
               Cissou
             </span>
           </div>
-          <div className="ml-auto flex h-8 md:h-20">
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="p-1"
-              aria-label="Close chat"
-            >
-              <CloseButton className="h-[32px] w-[32px] md:w-[35px] md:h-[35px]" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleClose}
+            className="flex items-center justify-center min-w-[44px] min-h-[44px] w-12 h-12 md:w-12 md:h-12 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-full transition-colors flex-shrink-0 touch-manipulation relative z-[80]"
+            aria-label="Close chat"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <CloseButton className="w-6 h-6 md:w-8 md:h-8" />
+          </button>
         </div>
 
         {/* Messages area */}

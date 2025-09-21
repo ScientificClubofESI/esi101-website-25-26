@@ -18,6 +18,10 @@ const NavBar = () => {
     setShowChatBot(true);
   };
 
+  const handleChatClose = () => {
+    setShowChatBot(false);
+  };
+
   useEffect(() => {
     if (showChatBot) {
       document.body.style.overflow = 'hidden';
@@ -170,11 +174,10 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      {/* Render ChatBot */}
+      {/* Render ChatBot - Fixed z-index and removed duplicate close button */}
       {showChatBot && (
-        <div className='md:bg-black md:bg-opacity-50 fixed inset-0'>
-          <span className='absolute md:top-44 md:right-16 top-4 right-9 z-50 text-primary-500 text-3xl cursor-pointer' onClick={() => setShowChatBot(false)} >X</span>
-            <ChatBot />
+        <div className='md:bg-black md:bg-opacity-50 fixed inset-0 z-[55]'>
+          <ChatBot defaultOpen={true} onClose={handleChatClose} />
         </div>
       )}
     </section>
