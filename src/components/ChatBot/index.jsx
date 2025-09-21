@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { useChatBot } from '@/contexts/ChatBotContext';
 // Suggested questions shown in desktop sidebar and mobile chips
 const SUGGESTED_QUESTIONS = [
   "What is Cissou?",
@@ -130,7 +131,7 @@ const ThinkingIndicator = () => (
 
 const ChatBot = ({ defaultOpen = true, onClose }) => {
   const [open, setOpen] = useState(defaultOpen); // container visibility
-  const [messages, setMessages] = useState([]); // start empty
+  const { messages, setMessages } = useChatBot(); // Use shared messages
   const [input, setInput] = useState("");
   const [selectedIdx, setSelectedIdx] = useState(null);
   const [thinking, setThinking] = useState(false);
@@ -241,10 +242,14 @@ const ChatBot = ({ defaultOpen = true, onClose }) => {
   }
 
   return (
-    <section
-      className="fixed inset-0 md:inset-auto md:bottom-8 md:top-auto w-full h-full md:w-[59vw] md:h-[73.8vh] z-[60] bg-background-light dark:bg-background-dark md:rounded-3xl shadow-xl   flex flex-col md:flex-row overflow-hidden md:right-8 md:left-auto md:ml-auto"
-      aria-label="ChatBot"
-    >
+    <>
+      {/* Backdrop blur for desktop only */}
+      <div className="hidden md:block fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-[59]" onClick={handleClose}></div>
+      
+      <section
+        className="fixed inset-0 md:inset-auto md:bottom-8 md:top-auto w-full h-full md:w-[59vw] md:h-[73.8vh] z-[60] bg-background-light dark:bg-background-dark md:rounded-3xl shadow-xl flex flex-col md:flex-row overflow-hidden md:right-8 md:left-auto md:ml-auto"
+        aria-label="ChatBot"
+      >
       {/* Left suggestions panel (desktop) */}
       <div className="hidden md:flex flex-col w-[29%] bg-background-light dark:bg-background-dark border-r-2 dark:border-neutral-900 border-neutral-100 p-2">
         <h2 className="text-secondary-500 text-center pb-4 h-24 mt-2 text-3xl font-normal mb-2">
@@ -434,6 +439,7 @@ const ChatBot = ({ defaultOpen = true, onClose }) => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

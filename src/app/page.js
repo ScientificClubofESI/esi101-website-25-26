@@ -1,6 +1,7 @@
 import Image from "next/image";
 import About from "@/components/About";
-import ChatBot from "@/components/ChatBot";
+import UnifiedChatBot from "@/components/UnifiedChatBot";
+import ChatBotFloatingButton from "@/components/ChatBotFloatingButton";
 import FAQ from "@/components/FAQs";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
@@ -18,7 +19,10 @@ export default function Home(){
        <StudentQA/>
        <FAQ/>
        <Footer/>
-       <ChatBot defaultOpen={false} />
+       {/* Mobile-only ChatBot floating button */}
+       <ChatBotFloatingButton className="md:hidden" />
+       {/* Unified ChatBot that can be opened from anywhere */}
+       <UnifiedChatBot />
        </>
     );
 }

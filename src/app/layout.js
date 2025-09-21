@@ -3,6 +3,7 @@
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { Outfit } from "next/font/google";
+import { ChatBotProvider } from "@/contexts/ChatBotContext";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
         className={`${outfit.variable} bg-background-light dark:bg-background-dark`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <ChatBotProvider>
+            {children}
+          </ChatBotProvider>
         </ThemeProvider>
       </body>
     </html>

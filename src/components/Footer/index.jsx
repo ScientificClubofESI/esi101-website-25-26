@@ -44,7 +44,7 @@ const Footer = ()=>{
         </a></li>
 
        <li className='group'><a href="https://x.com/CSESI_Club" target="_blank" rel="noopener noreferrer">
-        <SocialIcon iconlight="/assets/twitter.svg" icondark="/assets/twitterWhite.svg" iconhover="/assets/xOrange.svg"/>
+        <SocialIcon iconlight="/assets/twitter.svg" icondark="/assets/twitterWhite.svg" iconhover="/assets/xorange.svg"/>
         </a></li>
       </ul>
 
