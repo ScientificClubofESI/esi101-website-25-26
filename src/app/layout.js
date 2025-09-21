@@ -14,6 +14,11 @@ const outfit = Outfit({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <title>ESI101</title>
+        <meta name="description" content="Your app description" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+      </head>
       <body
         className={`${outfit.variable} bg-background-light dark:bg-background-dark`}
       >
