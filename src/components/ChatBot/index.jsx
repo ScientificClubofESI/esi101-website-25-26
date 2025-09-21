@@ -2,11 +2,11 @@
 import React, { useState, useRef, useEffect } from "react";
 // Suggested questions shown in desktop sidebar and mobile chips
 const SUGGESTED_QUESTIONS = [
-  "What extracurricular activities are offered?",
-  "How can I contact the student community?",
-  "What programs are available?",
-  "How do I apply?",
-  "What are the tuition fees?",
+  "What is Cissou?",
+  "What are the 1CP modules at ESI?",
+  "What are the positive aspects of the school?",
+  "Is it important to join the CSE club in the first year?",
+  "What is CSE?",
 ];
 // Custom hook for dark mode detection
 const useDarkMode = () => {
@@ -136,7 +136,6 @@ const ChatBot = ({ defaultOpen = true, onClose }) => {
   const [thinking, setThinking] = useState(false);
   const scrollRef = useRef(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const replyTimeoutRef = useRef(null);
   const showIntro = messages.length === 0 && !thinking;
   const showMobileSuggestions = messages.length === 0; // controls bottom padding on mobile
 
@@ -155,42 +154,55 @@ const ChatBot = ({ defaultOpen = true, onClose }) => {
     }
   }, [messages, thinking]);
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const trimmed = (text ?? input).trim();
     if (!trimmed) return;
+    
     setMessages((m) => [...m, { role: "user", content: trimmed }]);
     setInput("");
     setThinking(true);
 
-    // Simulate bot reply
-    replyTimeoutRef.current = setTimeout(() => {
+    try {
+      const response = await fetch('https://cissou.onrender.com/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: trimmed,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
       setMessages((m) => [
         ...m,
         {
           role: "bot",
-          content:
-            "This is a placeholder response. Integrate your backend or API here.",
+          content: data.reply || data.response || data.message || "Sorry, I couldn't process your request.",
         },
       ]);
-      setThinking(false);
-      replyTimeoutRef.current = null;
-    }, 1200);
-  };
-
-  const cancelThinking = () => {
-    if (replyTimeoutRef.current) {
-      clearTimeout(replyTimeoutRef.current);
-      replyTimeoutRef.current = null;
+    } catch (error) {
+      console.error('Chat API error:', error);
+      setMessages((m) => [
+        ...m,
+        {
+          role: "bot",
+          content: "Sorry, I'm having trouble connecting right now. Please try again later.",
+        },
+      ]);
+    } finally {
       setThinking(false);
     }
   };
 
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (replyTimeoutRef.current) clearTimeout(replyTimeoutRef.current);
-    };
-  }, []);
+  const cancelThinking = () => {
+    setThinking(false);
+  };
 
   const handleSuggestionClick = (idx) => {
     setSelectedIdx(idx);

@@ -17,7 +17,8 @@ export default function Home(){
        <About/>
        <StudentQA/>
        <FAQ/>
-       <Footer/> 
+       <Footer/>
+       <ChatBot defaultOpen={false} />
        </>
     );
 }
