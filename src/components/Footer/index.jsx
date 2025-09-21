@@ -32,15 +32,15 @@ const Footer = ()=>{
         </a></li>
 
        <li className='group'><a href="https://www.facebook.com/club.scientifique.esi" target="_blank" rel="noopener noreferrer">
-        <SocialIcon iconlight="/assets/facebook.svg" icondark="/assets/facebookWhite.svg" iconhover="/assets/fbOrange.svg" />
+        <SocialIcon iconlight="/assets/facebook.svg" icondark="/assets/facebookWhite.svg" iconhover="/assets/fborange.svg" />
         </a></li>
 
        <li className='group'><a href="https://www.youtube.com/@ClubScientifiqueESI-CSE" target="_blank" rel="noopener noreferrer">
-        <SocialIcon iconlight="/assets/youtube.svg" icondark="/assets/youtubeWhite.svg"  iconhover="/assets/ytOrange.svg" />
+        <SocialIcon iconlight="/assets/Youtube.svg" icondark="/assets/YoutubeWhite.svg"  iconhover="/assets/ytorange.svg" />
         </a></li>
 
        <li className='group'><a href="https://www.linkedin.com/company/cse-club" target="_blank" rel="noopener noreferrer">
-        <SocialIcon iconlight="/assets/linkedin.svg" icondark="/assets/linkedinWhite.svg" iconhover="/assets/lkOrange.svg" />
+        <SocialIcon iconlight="/assets/linkedIn.svg" icondark="/assets/linkedInWhite.svg" iconhover="/assets/lkorange.svg" />
         </a></li>
 
        <li className='group'><a href="https://x.com/CSESI_Club" target="_blank" rel="noopener noreferrer">

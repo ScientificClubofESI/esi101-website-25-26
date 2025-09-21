@@ -35,7 +35,7 @@ const BotAvatar = ({ hover = false, className = "w-8 h-8" }) => {
 
   const getSrc = () => {
     if (hover) return "/assets/bot-hover.png";
-    return isDark ? "/assets/dark bot.png" : "/assets/ChatBot.png";
+    return isDark ? "/assets/dark bot.png" : "/assets/dark bot.png";
   };
 
   return (
@@ -85,7 +85,7 @@ const BotMessage = ({ content }) => (
       <BotAvatar className="w-8 h-8" />
     </div>
     <div
-      className="relative w-64 p-2 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-200 dark:bg-gray-700 z-20 opacity-70"
+      className="relative w-64 p-2 text-gray-800 dark:text-gray-800 text-lg text-left rounded-2xl bg-gray-200 dark:bg-gray-200 z-20 opacity-70"
       style={{ borderBottomLeftRadius: "0" }}
     >
       <span className="relative z-10 break-words">{content}</span>
@@ -224,10 +224,18 @@ const ChatBot = ({ defaultOpen = true, onClose }) => {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-primary-500 text-white shadow-lg px-5 py-3 hover:bg-secondary-500 transition-colors"
+        className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-16 h-16 rounded-full bg-primary-500 text-white shadow-lg hover:bg-secondary-500 transition-all duration-300 hover:scale-110 group"
+        aria-label="Open chat"
       >
-        <BotAvatar />
-        <span className="font-medium hidden sm:inline">Chat</span>
+        <div className="relative">
+          <BotAvatar className="w-8 h-8" />
+          {/* Message notification dot */}
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+        </div>
+        {/* Tooltip on hover */}
+        <span className="absolute right-full mr-3 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          Chat with Cissou
+        </span>
       </button>
     );
   }
