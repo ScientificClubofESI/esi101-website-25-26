@@ -2,46 +2,50 @@
 
 import React from "react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
-import ChatBot from '../ChatBot/index.jsx';
+import { useChatBot } from '@/contexts/ChatBotContext';
 
 const NavBar = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [showChatBot, setShowChatBot] = useState(false);
+  const { openChatBot } = useChatBot();
+  const navbarRef = useRef(null);
 
   const handleChatClick = () => {
-    setShowChatBot(true);
+    openChatBot();
   };
-
-  const handleChatClose = () => {
-    setShowChatBot(false);
-  };
-
-  useEffect(() => {
-    if (showChatBot) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [showChatBot]);
-
-  useEffect(() => setMounted(true), []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    if (mobileMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => setMounted(true), []);
+
   return (
     <section className="fixed top-0 left-4 right-4 md:left-10 md:right-10 z-50">
       <div
+        ref={navbarRef}
         className="flex flex-col rounded-3xl mt-2 bg-primary-500 md:bg-[#ECF1FC] md:dark:bg-[#1D3564]"  >
         {/* Main Navbar Row */}
         <div className="flex justify-between py-2 px-4 md:px-6 items-center">
@@ -174,12 +178,6 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      {/* Render ChatBot - Fixed z-index and removed duplicate close button */}
-      {showChatBot && (
-        <div className='md:bg-black md:bg-opacity-50 fixed inset-0 z-[55]'>
-          <ChatBot defaultOpen={true} onClose={handleChatClose} />
-        </div>
-      )}
     </section>
   );
 };
