@@ -5,9 +5,12 @@ import Image from "next/image";
 const StudentQA = () => {
   const youtubeVideoId = "CevCPGdWXBg";
   const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef(null);
+  const mobileVideoRef = useRef(null);
+  const desktopVideoRef = useRef(null);
 
-  const handlePlayPause = () => {
+  const handlePlayPause = (isMobile = false) => {
+    const videoRef = isMobile ? mobileVideoRef : desktopVideoRef;
+    
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -20,13 +23,13 @@ const StudentQA = () => {
   };
 
   return (
-    <section className='relative my-16  p-5 md:p-16 mt-24 lg:p-24 mt-32  ' id="StudentQA">
+    <section className='relative my-16 p-5 md:p-16 mt-24 lg:p-24 mt-32' id="StudentQA">
       <div className="relative flex flex-col justify-start gap-14 lg:gap-16">
         <div className="relative">
           <h1 className="text-primary-500 font-light text-heading-l lg:text-[49px]">
-            {" "} Student <span className="text-secondary-500 uppercase"> {" "} Q&A </span> 
+            Student <span className="text-secondary-500 uppercase">Q&A</span> 
           </h1>
-          <div className="absolute top-7 w-72 md:w-[350px] lg:w-[450px] lg left-0">
+          <div className="absolute top-7 w-72 md:w-[350px] lg:w-[450px] left-0">
             <Image
               src="/assets/Vector (1).svg"
               alt="vector"
@@ -35,22 +38,28 @@ const StudentQA = () => {
             />
           </div>
         </div>
+        
         <div className="text-background-dark flex flex-col justify-start gap-10 w-full dark:text-neutral-50">
           <p className="text-text-m md:text-text-l">
             Have questions about student life, classes, or projects at ESI? We'll share our real experiences to answer them and help you navigate your first steps with confidence. Our experiences will guide you through challenges and help you make the most of your time here.
           </p>
         </div>
-        <div className="relative flex flex-col items-center w-[100%] hidden md:block h-[760px]">
+
+        {/* Desktop Video Section */}
+        <div className="relative flex-col items-center w-full h-[760px] hidden md:flex">
+          {/* Background decorative elements */}
           <img src="/assets/top-left.svg" alt="top-left" className="absolute top-0 left-0 z-10"/>
           <img src="/assets/middle-left.svg" alt="middle-left" className="absolute top-[310px] left-0 z-10"/>
-          <img src="/assets/bottom-left.svg" alt="middle-left" className="absolute top-[610px] left-0 z-10"/>
-          <img src="/assets/bottom-right.svg" alt="middle-left" className="absolute top-[455px] right-0 z-10"/>
-          <img src="/assets/top-right.svg" alt="middle-left" className="absolute top-0 right-0 z-10"/>
+          <img src="/assets/bottom-left.svg" alt="bottom-left" className="absolute top-[610px] left-0 z-10"/>
+          <img src="/assets/bottom-right.svg" alt="bottom-right" className="absolute top-[455px] right-0 z-10"/>
+          <img src="/assets/top-right.svg" alt="top-right" className="absolute top-0 right-0 z-10"/>
           <img src="/assets/Intersect.svg" alt="" className="absolute top-0 left-[216px] opacity-[30%] z-0"/>
           
-          <div className="absolute top-0 left-[216px] w-[848px] h-[598px] overflow-hidden shadow-lg z-0">
+          {/* Video Container */}
+          <div className="absolute top-0 left-[216px] w-[848px] h-[598px] overflow-hidden shadow-lg z-20">
             <div 
-              className="w-full h-full relative cursor-pointer"
+              className="w-full h-full relative cursor-pointer overflow-hidden"
+              onClick={() => handlePlayPause(false)}
               style={{
                 mask: 'url(#video-mask)',
                 WebkitMask: 'url(#video-mask)',
@@ -58,23 +67,24 @@ const StudentQA = () => {
                 maskRepeat: 'no-repeat',
                 maskPosition: 'center'
               }}
-              onClick={handlePlayPause}
             >
               <video
-                ref={videoRef}
-                className="w-full h-full object-cover "
+                ref={desktopVideoRef}
+                className="w-full h-full object-cover"
                 muted
                 loop
                 playsInline
                 controls={false}
+                preload="metadata"
               >
                 <source src="/assets/clipforvideo.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
+              {/* Play Button */}
               {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="hover:scale-110 transition-all duration-300">
+                <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+                  <div className="hover:scale-110 transition-all duration-300 pointer-events-auto">
                     <svg 
                       width="120" 
                       height="133" 
@@ -105,43 +115,45 @@ const StudentQA = () => {
           </div>
         </div>
 
-        <div className="w-[100%] h-[50%]  md:hidden">
-            <div 
-              className="w-full h-full relative cursor-pointer"
-              onClick={handlePlayPause}
+        {/* Mobile Video Section */}
+        <div className="w-full h-auto md:hidden">
+          <div 
+            className="w-full aspect-video relative cursor-pointer bg-black rounded-[25px] overflow-hidden"
+            onClick={() => handlePlayPause(true)}
+          >
+            <video
+              ref={mobileVideoRef}
+              className="w-full h-full object-cover"
+              muted
+              loop
+              playsInline
+              controls={false}
+              preload="metadata"
             >
-              <video
-                ref={videoRef}
-                className="w-full h-full object-cover rounded-[25px] "
-                muted
-                loop
-                playsInline
-                controls={false}
-              >
-                <source src="/assets/clipforvideo.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <source src="/assets/clipforvideo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
 
-              {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center z-20">
-                  <div className="hover:scale-110 transition-all duration-300">
-                    <svg 
-                      width="60" 
-                      height="60" 
-                      viewBox="0 0 190 211" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="drop-shadow-lg"
-                    >
-                      <path 
-                        d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
-                        fill="#F8FAFB"
-                      />
-                    </svg>
-                  </div>
+            {!isPlaying && (
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="hover:scale-110 transition-all duration-300">
+                  <svg 
+                    width="60" 
+                    height="60" 
+                    viewBox="0 0 190 211" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="drop-shadow-lg"
+                  >
+                    <path 
+                      d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
+                      fill="#F8FAFB"
+                    />
+                  </svg>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
         </div>
         
         <div className="flex justify-center md:justify-end">
@@ -153,10 +165,12 @@ const StudentQA = () => {
           </button>
         </div>
       </div>
-          <img
-              src="/assets/Asset-3.svg"
-              alt=""
-              className="hidden md:block pointer-events-none select-none absolute right-0 bottom-0 translate-y-32  h-[300px]"/>
+      
+      <img
+        src="/assets/Asset-3.svg"
+        alt=""
+        className="hidden md:block pointer-events-none select-none absolute right-0 bottom-0 translate-y-32 h-[300px]"
+      />
     </section>
   );
 }
