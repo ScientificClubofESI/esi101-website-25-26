@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <title>ESI101</title>
+
         <meta name="description" content="ESI101 website 2025/2026 edition ggod luck for all 1CP students" />
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
