@@ -34,8 +34,8 @@ const Hero = ()=>{
         <img src="/assets/hero-pic-2.png" alt="Hero" />
         <img src="/assets/hero-pic-1.png" alt="Hero" className="h-full" />
       </div>
-      <img src="/assets/union.svg" alt="" className="absolute top-[17rem] left-0 dark:hidden"/>
-      <img src="/assets/union.png"alt="" className="absolute top-[17rem] left-0 dark:block hidden"/>
+      <img src="/assets/Union.svg" alt="" className="absolute top-[17rem] left-0 dark:hidden"/>
+      <img src="/assets/Union.png"alt="" className="absolute top-[17rem] left-0 dark:block hidden"/>
       <p className="absolute top-[18rem] left-[19rem] text-text-s text-primary-900 dark:text-primary-100">
         Belong, grow, and shine at ESI.
       </p>

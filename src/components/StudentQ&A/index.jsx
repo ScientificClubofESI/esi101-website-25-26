@@ -1,25 +1,14 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 const StudentQA = () => {
   const youtubeVideoId = "CevCPGdWXBg";
-  const [isPlaying, setIsPlaying] = useState(false);
-  const mobileVideoRef = useRef(null);
-  const desktopVideoRef = useRef(null);
+  const googleDriveVideoId = "1WcofypunhySh8KK3f-SNknClbojsuDxy"; // Replace with your video ID
+  const [showIframe, setShowIframe] = useState(false);
 
-  const handlePlayPause = (isMobile = false) => {
-    const videoRef = isMobile ? mobileVideoRef : desktopVideoRef;
-    
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      } else {
-        videoRef.current.play();
-        setIsPlaying(true);
-      }
-    }
+  const handlePlayVideo = () => {
+    setShowIframe(true);
   };
 
   return (
@@ -46,20 +35,20 @@ const StudentQA = () => {
         </div>
 
         {/* Desktop Video Section */}
-        <div className="relative flex-col items-center w-full h-[760px] hidden md:flex">
-          {/* Background decorative elements */}
-          <img src="/assets/top-left.svg" alt="top-left" className="absolute top-0 left-0 z-10"/>
-          <img src="/assets/middle-left.svg" alt="middle-left" className="absolute top-[310px] left-0 z-10"/>
-          <img src="/assets/bottom-left.svg" alt="bottom-left" className="absolute top-[610px] left-0 z-10"/>
-          <img src="/assets/bottom-right.svg" alt="bottom-right" className="absolute top-[455px] right-0 z-10"/>
-          <img src="/assets/top-right.svg" alt="top-right" className="absolute top-0 right-0 z-10"/>
-          <img src="/assets/Intersect.svg" alt="" className="absolute top-0 left-[216px] opacity-[30%] z-0"/>
+        <div className="relative flex-col items-center justify-center w-full h-[760px] hidden md:flex">
+          {/* Background decorative elements - seamless puzzle layout */}
+          <img src="/assets/top-left.svg" alt="top-left" className="absolute top-0 left-0 z-10 ml-[220px]"/>
+          <img src="/assets/middle-left.svg" alt="middle-left" className="absolute top-[310px] left-0 z-10 ml-[220px]"/>
+          <img src="/assets/bottom-left.svg" alt="bottom-left" className="absolute top-[610px] left-0 z-10 ml-[220px]"/>
+          <img src="/assets/bottom-right.svg" alt="bottom-right" className="absolute top-[440px] right-0 z-10 mr-[220px] mt-[16px]"/>
+          <img src="/assets/top-right.svg" alt="top-right" className="absolute top-0 right-0 z-10 mr-[220px]"/>
+          <img src="/assets/Intersect.svg" alt="" className="absolute top-0 left-[calc(50%_-_424px)] opacity-[30%] z-0"/>
           
-          {/* Video Container */}
-          <div className="absolute top-0 left-[216px] w-[848px] h-[598px] overflow-hidden shadow-lg z-20">
+          {/* Video Container - perfectly centered and touching edges */}
+          <div className="absolute top-0 left-1/2 transform -translate-x-[424px] w-[848px] h-[598px] overflow-hidden shadow-lg z-20">
             <div 
               className="w-full h-full relative cursor-pointer overflow-hidden"
-              onClick={() => handlePlayPause(false)}
+              onClick={handlePlayVideo}
               style={{
                 mask: 'url(#video-mask)',
                 WebkitMask: 'url(#video-mask)',
@@ -68,38 +57,54 @@ const StudentQA = () => {
                 maskPosition: 'center'
               }}
             >
-              <video
-                ref={desktopVideoRef}
-                className="w-full h-full object-cover"
-                muted
-                loop
-                playsInline
-                controls={false}
-                preload="metadata"
-              >
-                <source src="/assets/clipforvideo.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              {showIframe ? (
+                <iframe
+                  src={`https://drive.google.com/file/d/${googleDriveVideoId}/preview`}
+                  allow="autoplay"
+                  className="w-full h-full"
+                  frameBorder="0"
+                />
+              ) : (
+                <>
+                  {/* Video Thumbnail/Cover */}
+                  <div className="w-full h-full relative bg-black flex items-center justify-center">
+                    <img 
+                      src="/assets/video.png" 
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextElementSibling.style.display = 'flex';
+                      }}
+                    />
+                    
+                    {/* Fallback background if thumbnail doesn't load */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center" style={{display: 'none'}}>
+                      <div className="text-center">
+                        <p className="text-white font-medium mb-4">Student Q&A Video</p>
+                      </div>
+                    </div>
 
-              {/* Play Button */}
-              {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-                  <div className="hover:scale-110 transition-all duration-300 pointer-events-auto">
-                    <svg 
-                      width="120" 
-                      height="133" 
-                      viewBox="0 0 190 211" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="drop-shadow-lg"
-                    >
-                      <path 
-                        d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
-                        fill="#F8FAFB"
-                      />
-                    </svg>
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                      <div className="bg-black bg-opacity-50 rounded-full p-6 hover:bg-opacity-70 transition-all duration-300">
+                        <svg 
+                          width="120" 
+                          height="133" 
+                          viewBox="0 0 190 211" 
+                          fill="none" 
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="drop-shadow-lg hover:scale-110 transition-all duration-300"
+                        >
+                          <path 
+                            d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
+                            fill="#F8FAFB"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
             
@@ -119,37 +124,34 @@ const StudentQA = () => {
         <div className="w-full h-auto md:hidden">
           <div 
             className="w-full aspect-video relative cursor-pointer bg-black rounded-[25px] overflow-hidden"
-            onClick={() => handlePlayPause(true)}
+            onClick={handlePlayVideo}
           >
-            <video
-              ref={mobileVideoRef}
-              className="w-full h-full object-cover"
-              muted
-              loop
-              playsInline
-              controls={false}
-              preload="metadata"
-            >
-              <source src="/assets/clipforvideo.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-
-            {!isPlaying && (
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <div className="hover:scale-110 transition-all duration-300">
-                  <svg 
-                    width="60" 
-                    height="60" 
-                    viewBox="0 0 190 211" 
-                    fill="none" 
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="drop-shadow-lg"
-                  >
-                    <path 
-                      d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
-                      fill="#F8FAFB"
-                    />
-                  </svg>
+            {showIframe ? (
+              <iframe
+                src={`https://drive.google.com/file/d/${googleDriveVideoId}/preview`}
+                allow="autoplay"
+                className="w-full h-full rounded-[25px]"
+                frameBorder="0"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center rounded-[25px]">
+                <div className="text-center">
+                  <div className="mb-2">
+                    <svg 
+                      width="60" 
+                      height="60" 
+                      viewBox="0 0 190 211" 
+                      fill="none" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="drop-shadow-lg mx-auto hover:scale-110 transition-all duration-300"
+                    >
+                      <path 
+                        d="M73.1662 161.018C68.7361 161.018 64.5873 159.852 60.9308 157.521C52.2816 152.003 47.5 140.889 47.5 126.277V84.6969C47.5 70.0855 52.2816 58.9715 60.9308 53.4534C69.5799 47.9353 80.6199 48.9456 92.1521 56.2513L124.709 77.0026C136.171 84.3083 142.5 94.412 142.5 105.448C142.5 116.484 136.171 126.588 124.709 133.894L92.1521 154.645C85.5422 158.92 79.0729 161.018 73.1662 161.018Z" 
+                        fill="#F8FAFB"
+                      />
+                    </svg>
+                  </div>
+                  <p className="text-primary-600 font-medium text-sm">Tap to play video</p>
                 </div>
               </div>
             )}
