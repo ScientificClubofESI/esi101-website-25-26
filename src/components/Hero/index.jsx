@@ -47,13 +47,13 @@ const Hero = ()=>{
   <div className="absolute top-[17rem] mt-2  left-[2rem] w-fit">
 
     <img 
-      src="/assets/union.svg" 
+      src="/assets/Union.svg" 
       alt="" 
       className="max-w-full h-auto dark:hidden"
     />
 
     <img 
-      src="/assets/union.png" 
+      src="/assets/Union.png" 
       alt="" 
       className="max-w-full h-auto hidden dark:block"
     />
