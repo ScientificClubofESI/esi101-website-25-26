@@ -35,17 +35,17 @@ const StudentQA = () => {
         </div>
 
         {/* Desktop Video Section */}
-        <div className="relative flex-col items-center justify-center w-full h-[760px] hidden md:flex">
-          {/* Background decorative elements - seamless puzzle layout */}
-          <img src="/assets/top-left.svg" alt="top-left" className="absolute top-0 left-0 z-10 ml-[220px]"/>
-          <img src="/assets/middle-left.svg" alt="middle-left" className="absolute top-[310px] left-0 z-10 ml-[220px]"/>
-          <img src="/assets/bottom-left.svg" alt="bottom-left" className="absolute top-[610px] left-0 z-10 ml-[220px]"/>
-          <img src="/assets/bottom-right.svg" alt="bottom-right" className="absolute top-[440px] right-0 z-10 mr-[220px] mt-[16px]"/>
-          <img src="/assets/top-right.svg" alt="top-right" className="absolute top-0 right-0 z-10 mr-[220px]"/>
-          <img src="/assets/Intersect.svg" alt="" className="absolute top-0 left-[calc(50%_-_424px)] opacity-[30%] z-0"/>
+        <div className="relative flex-col items-center justify-center w-full h-[760px]  aspect-[848/760] hidden lg:flex">
+          {/* Background decorative elements */}
+          <img src="/assets/top-left.svg" alt="top-left" className="absolute top-0 left-0 opacity-[70%] z-15"/>
+          <img src="/assets/middle-left.svg" alt="middle-left" className="absolute top-[310px] opacity-[50%] left-0 z-10"/>
+          <img src="/assets/bottom-left.svg" alt="bottom-left" className="absolute top-[610px] opacity-[50%] left-0 z-10"/>
+          <img src="/assets/bottom-right.svg" alt="bottom-right" className="absolute top-[455px] opacity-[70%] right-0 z-15"/>
+          <img src="/assets/top-right.svg" alt="top-right" className="absolute top-0 right-0 opacity-[50%] z-10"/>
+
           
           {/* Video Container - perfectly centered and touching edges */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-[424px] w-[848px] h-[598px] overflow-hidden shadow-lg z-20">
+          <div className="absolute top-0 left-1/2 transform -translate-x-[424px] w-[848px] h-[598px] overflow-hidden  z-20">
             <div 
               className="w-full h-full relative cursor-pointer overflow-hidden"
               onClick={handlePlayVideo}
@@ -121,7 +121,7 @@ const StudentQA = () => {
         </div>
 
         {/* Mobile Video Section */}
-        <div className="w-full h-auto md:hidden">
+        <div className="w-full h-auto lg:hidden">
           <div 
             className="w-full aspect-video relative cursor-pointer bg-black rounded-[25px] overflow-hidden"
             onClick={handlePlayVideo}

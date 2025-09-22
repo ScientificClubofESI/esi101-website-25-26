@@ -28,23 +28,55 @@ const Hero = ()=>{
 
   return(
 <section className="relative mb-16 pt-0 px-5 pb-5 md:px-16 pb-16 mb-24 lg:px-24 pb-24 mb-32 font-sans" id="hero">
-  <div className="flex items-start">
-    <div className="relative flex flex-col items-center w-[50%] hidden md:block">
-      <div className="flex gap-x-4">
-        <img src="/assets/hero-pic-2.png" alt="Hero" />
-        <img src="/assets/hero-pic-1.png" alt="Hero" className="h-full" />
-      </div>
-      <img src="/assets/Union.svg" alt="" className="absolute top-[17rem] left-0 dark:hidden"/>
-      <img src="/assets/Union.png"alt="" className="absolute top-[17rem] left-0 dark:block hidden"/>
-      <p className="absolute top-[18rem] left-[19rem] text-text-s text-primary-900 dark:text-primary-100">
-        Belong, grow, and shine at ESI.
-      </p>
-      <img  src="/assets/circle.svg" alt="" className="absolute top-[25rem] left-[21rem] dark:hidden"/>
-      <img src="/assets/circle.png" alt=""className="absolute top-[25rem] left-[21rem] dark:block hidden"/>
-    </div>
+  <div className="flex items-start ">
+<div className="relative flex flex-col items-center w-[50%]  hidden mx-8 mt-2  md:block">
+ 
+  <div className="flex gap-x-4 w-full">
+    <img
+      src="/assets/hero-pic-2.png"
+      alt="Hero"
+      className="w-1/2 h-auto ml-8 object-contain"
+    />
+    <img
+      src="/assets/hero-pic-1.png"
+      alt="Hero"
+      className="w-1/2 h-1/2 mr-4 object-contain"
+    />
+  </div>
 
-    <div className="md:w-[50%] w-full md:mt-12">
-      <img src="/assets/esi-icon.png" alt="Logo" className="dark:hidden w-[40rem] my-8"/>
+  <div className="absolute top-[17rem] mt-2  left-[2rem] w-fit">
+
+    <img 
+      src="/assets/union.svg" 
+      alt="" 
+      className="max-w-full h-auto dark:hidden"
+    />
+
+    <img 
+      src="/assets/union.png" 
+      alt="" 
+      className="max-w-full h-auto hidden dark:block"
+    />
+
+    {/* Text Overlay */}
+    <p className="absolute top-0 left-1/2 m-2
+                   text-text-[0.5rem] font-light
+                   text-primary-900 dark:text-primary-100">
+      Belong, grow, and shine at ESI.
+    </p>
+  </div>
+  <div className='absolute top-[25rem] left-[21rem] w-fit '>
+      <img  src="/assets/circle.svg" alt="" className=" max-w-full h-auto dark:hidden"/>
+      <img src="/assets/circle.png" alt=""className=" max-w-full h-auto dark:block hidden"/>
+
+  </div>
+
+</div>
+
+
+
+    <div className="md:w-[50%] w-full mx-8 md:mt-12">
+      <img src="/assets/esi-icon.png" alt="Logo" className="dark:hidden lg:w-[40rem] md:w-[30rem] my-8"/>
       <img src="/assets/Dark%20Logo.svg" alt="Logo" className="hidden dark:block my-8"/>
 
       <h1 className="md:text-heading-l text-text-l text-center md:text-left mb-8 text-primary-900 dark:text-background-light">
