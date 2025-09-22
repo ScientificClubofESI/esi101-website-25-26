@@ -12,9 +12,9 @@ const LoadingPage = () => {
             <Image
               src="/assets/esi-icon.png" 
               alt="Loading"
-              width={500}
-              height={300}
-              className="w-24 h-24 md:w-32 md:h-32"
+              width={600}
+              height={400}
+              className="w-[150px] h-[50px] md:w-[300px] md:h-[h-200px]"
               priority
             />
           </div>
@@ -22,8 +22,8 @@ const LoadingPage = () => {
         </div>
 
         <div className="text-center">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
-            Loading...
+          <h2 className="text-heading-m md:text-heading-l font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            Loading
           </h2>
           
           {/* Animated dots */}

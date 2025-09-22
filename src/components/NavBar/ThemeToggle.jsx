@@ -23,14 +23,14 @@ export default function ThemeToggle() {
     >
       {theme === "dark" ? (
         <Image
-          src="/assets/Moon.png"   
+          src="/assets/sun.png"   
           alt="Dark Mode"
           width={24}
           height={24}
         />
       ) : (
         <Image
-          src="/assets/sun.png"    
+          src="/assets/Moon.png"    
           alt="Light Mode"
           width={24}
           height={24}
