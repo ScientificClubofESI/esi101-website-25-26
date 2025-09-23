@@ -32,11 +32,11 @@ const About = () => {
             </p>
             <div className="relative  font-light  w-full flex capitalize text-text-m rounded-full  gap-6 justify-evenly items-center  ">
               <div className="bg-primary-100  py-5  w-full flex capitalize text-text-m rounded-full justify-evenly items-center  dark:bg-primary-800">
-                <span>+600 members</span>
+                <span>+1600 members</span>
               </div>
               <div className="h-[60px] absolute inset-0 m-auto clip-wave  bg-primary-100 rounded-t-sm rounded-b-sm w-14 dark:bg-primary-800 "></div>
               <div className="bg-primary-100   py-5 w-full flex capitalize text-text-m rounded-full justify-evenly items-center  dark:bg-primary-800">
-                <span>+20 partners</span>
+                <span>+250 partners</span>
               </div>
             </div>
           </div>
