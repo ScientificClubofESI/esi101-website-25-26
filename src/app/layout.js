@@ -17,49 +17,11 @@ export default function RootLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Method 1: Simple timer approach
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 5000); // 5 seconds loading
+    }, 2000); 
 
     return () => clearTimeout(timer);
-    
-    // Method 2: More sophisticated approach with image preloading
-    // const preloadCriticalAssets = async () => {
-    //   try {
-    //     // Preload critical images
-    //     const criticalImages = [
-    //       '/assets/your-logo.png',
-    //       '/assets/hero-image.jpg',
-    //       '/assets/main-banner.png',
-    //       // Add your most important images here
-    //     ];
-
-    //     const imagePromises = criticalImages.map((src) => {
-    //       return new Promise((resolve, reject) => {
-    //         const img = new Image();
-    //         img.onload = resolve;
-    //         img.onerror = resolve; // Continue even if some images fail
-    //         img.src = src;
-    //       });
-    //     });
-
-    //     // Wait for images to load
-    //     await Promise.all(imagePromises);
-    //     
-    //     // Minimum loading time so animation is visible
-    //     setTimeout(() => {
-    //       setIsLoading(false);
-    //     }, 1500);
-    //   } catch (error) {
-    //     console.log('Asset loading completed with some errors:', error);
-    //     setTimeout(() => {
-    //       setIsLoading(false);
-    //     }, 2500);
-    //   }
-    // };
-
-    // preloadCriticalAssets();
   }, []);
 
   return (
